@@ -12,6 +12,7 @@
  import java.util.Random;
 
  public class MainGame {
+    public static Player p = new Player();    //creates new player object p
     public static void main(String[] args){
         /* testing zone
         if(true){
@@ -28,7 +29,6 @@
         System.out.println("\tAuthor: Scott Rincon");
         System.out.println("***************************************");
         System.out.println("What is your username?");
-        Player p = new Player();    //creates new player object p
         p.name = userIn.nextLine();     //sets player name to user input
         System.out.println("What weapon do you want to use?");
         System.out.println("a. Sword, b. Bow and Arrow, or c. Magic Staff");
@@ -120,15 +120,19 @@
         //the following lines use the random number r to determine what event occurs in cave one
         if(r <= fightChance){
             fightInteraction(1);
+            System.out.println("Fight!");
         }
         else if(r > fightChance && r <= nadaChance + fightChance){
             nadaCave();
+            System.out.println("Nothing!");
         }
         else if(r > nadaChance + fightChance && r <= treasureChance + nadaChance + fightChance){
             treasureInteraction(1);
+            System.out.println("Treasure!");
         }
         else if(r >= 100 - trapChance){
             trapInteraction(1);
+            System.out.println("Trap!");
         }
     }
     /* 
@@ -156,20 +160,58 @@
      * The scenario if the cave is empty
      */
     public static void nadaCave(){
-
+        System.out.println("You enter the cave and find that nothing is there.");
+        System.out.println("You decide to take a rest and fix your weapons.(Health +5)");
+        if(!p.isFullHealth() && p.currentHealth + 5 <= p.maxHealth){
+            p.currentHealth = p.currentHealth + 5;
+        }
+        else if(p.currentHealth + 5 > p.maxHealth){
+            int healthIncrease = p.maxHealth - p.currentHealth;         //uses healthIncrease so that current health doesn't exceed max health
+            p.currentHealth = p.currentHealth + healthIncrease;
+        }
     }
 
     /*
      * The trap interaction that can be set to to 3 different difficulties depending on the cave it occured in
      */
     public static void trapInteraction(int rank){
-
+        if (rank == 1){
+            System.out.println("As you enter the cave, a bat is spooked and flys out of the cave.");
+            System.out.println("As it flies out, it hits you square in the face.(health -1)");
+            p.currentHealth = p.currentHealth - 1;
+        }
     }
 
     /*
      * The treasure interaction that can be set to 3 different rarities depending on the cave it occured in
      */
     public static void treasureInteraction(int rank){
+        if (rank == 1){
+            System.out.println("You enter the cave and see a treasure chest in the back corner.");
+        }
+    }
 
+    public static void treasureRoll(){
+        Random rand = new Random();
+        int random = rand.nextInt(4);
+        if (random == 1){
+            System.out.println("You open the chest and find a potion.");
+        }
+
+        if (random == 2){
+            System.out.println("You open the chest and find a new set of armor.");
+            p.level += 1;
+            p.strength += 1;
+            p.speed -= 1;
+        }
+
+        if (random == 3){
+            System.out.println("You open the chest and find the legendary weapon [blank]");
+        }
+
+        if (random == 4){
+            System.out.println("You open the chest and there is nothing but a rat. It bites you as it escapes.(health -1)");
+            p.currentHealth = p.currentHealth - 1;
+        }
     }
  }
