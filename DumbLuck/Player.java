@@ -7,6 +7,8 @@ public class Player {
     int currentHealth;
     int mana;
     Weapon type;
+    Item itemList[] = new Item[3];
+
     public Player(){
         level = 10;
         strength = 10;
@@ -24,9 +26,14 @@ public class Player {
         System.out.println("Level: " + level);
         System.out.println("Strength: " + strength);
         System.out.println("Speed: " + speed);
-        System.out.println("Health: " + maxHealth);
+        System.out.println("Health: " + currentHealth);
         System.out.println("Mana: " + mana);
         System.out.println("Weapon: " + type.name);
+        for (int i = 0; i < itemList.length; i++){
+            if(itemList[i] != null){
+                System.out.println("Item list: " + itemList[i].name);
+            }
+        }
     }
 
     /*
@@ -50,5 +57,15 @@ public class Player {
         else {
             return true;
         }
+    }
+
+    public void addItem(Item item){
+        for (int i = 0; i < itemList.length; i++){
+            if(itemList[i] == null){
+                itemList[i] = item;
+                return;
+            }
+        }
+        System.out.println("You have too many items!");
     }
 }

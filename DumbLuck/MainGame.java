@@ -26,8 +26,10 @@
         Scanner userIn = new Scanner(System.in);    //takes user's input
         System.out.println("***************************************");
         System.out.println("\tWelcome to Dumb Luck");
-        System.out.println("\tAuthor: Scott Rincon");
+        System.out.println("\tCreator: Scott Rincon");
         System.out.println("***************************************");
+        System.out.println("Press Enter to begin!");
+        userIn.nextLine();
         System.out.println("What is your username?");
         p.name = userIn.nextLine();     //sets player name to user input
         System.out.println("What weapon do you want to use?");
@@ -98,41 +100,46 @@
         
     }
 
+    /*
+     * helper function for caveOne; makes random choice on what the player will see in cave one
+     */
     public static void caveOneInteraction(int r, String choice){
         int fightChance = 25;
-        int nadaChance = 25;
-        int treasureChance = 25;
         int trapChance = 25;
+
+        //choosing cave a makes fight chance twice as likely while removing chance to hit a trap
         if(choice.equals("a")){
             fightChance *= 2;
-            nadaChance /= 2;
-            treasureChance /= 2;
-            trapChance /= 2;
+            //the following lines use the random number r to determine what event occurs in cave one
+            if(r <= fightChance){
+                System.out.println("Fight!");
+                fightInteraction(1);
+            }
+            else if(r > fightChance && r <= 75){
+                System.out.println("Nothing!");
+                nadaCave();
+            }
+            else if(r > 75 && r <= 100){
+                System.out.println("Treasure!");
+                treasureInteraction(1);
+            }
         }
 
         else if(choice.equals("b")){
             trapChance *= 2;
-            fightChance /= 2;
-            nadaChance /= 2;
-            treasureChance /= 2;
-        }
-
-        //the following lines use the random number r to determine what event occurs in cave one
-        if(r <= fightChance){
-            fightInteraction(1);
-            System.out.println("Fight!");
-        }
-        else if(r > fightChance && r <= nadaChance + fightChance){
-            nadaCave();
-            System.out.println("Nothing!");
-        }
-        else if(r > nadaChance + fightChance && r <= treasureChance + nadaChance + fightChance){
-            treasureInteraction(1);
-            System.out.println("Treasure!");
-        }
-        else if(r >= 100 - trapChance){
-            trapInteraction(1);
-            System.out.println("Trap!");
+            //the following lines use the random number r to determine what event occurs in cave one
+            if(r <= trapChance){
+                System.out.println("Trap!");
+                trapInteraction(1);
+            }
+            else if(r > fightChance && r <= 75){
+                System.out.println("Nothing!");
+                nadaCave();
+            }
+            else if(r > 75 && r <= 100){
+                System.out.println("Treasure!");
+                treasureInteraction(1);
+            }
         }
     }
     /* 
@@ -150,7 +157,8 @@
     }
 
     /*
-     * The fight interaction that can be set to 3 different difficulties depending on the cave it occured in
+     * The fight interaction that can be set to 2 different difficulties depending on the cave it occured in
+     * Note: not called in caveFinal b/c the last cave is set to be a guranteed battle level
      */
     public static void fightInteraction(int rank){
 
@@ -169,10 +177,11 @@
             int healthIncrease = p.maxHealth - p.currentHealth;         //uses healthIncrease so that current health doesn't exceed max health
             p.currentHealth = p.currentHealth + healthIncrease;
         }
+        p.printPlayerStats();
     }
 
     /*
-     * The trap interaction that can be set to to 3 different difficulties depending on the cave it occured in
+     * The trap interaction that can be set to to 2 different difficulties depending on the cave it occured in
      */
     public static void trapInteraction(int rank){
         if (rank == 1){
@@ -180,36 +189,50 @@
             System.out.println("As it flies out, it hits you square in the face.(health -1)");
             p.currentHealth = p.currentHealth - 1;
         }
+        p.printPlayerStats();
     }
 
     /*
-     * The treasure interaction that can be set to 3 different rarities depending on the cave it occured in
+     * The treasure interaction that can be set to 2 different rarities depending on the cave it occured in
      */
     public static void treasureInteraction(int rank){
         if (rank == 1){
             System.out.println("You enter the cave and see a treasure chest in the back corner.");
+            treasureRoll1();
         }
+        p.printPlayerStats();
     }
 
-    public static void treasureRoll(){
+    /*
+     * This roll function is for when the player finds a chest in the first cave
+     * The probibility of finding certain objects changes in cave two
+     */
+    public static void treasureRoll1(){
         Random rand = new Random();
-        int random = rand.nextInt(4);
-        if (random == 1){
+        int random = rand.nextInt(10);
+
+        //50% chance to find a potion
+        if (random <= 5){
             System.out.println("You open the chest and find a potion.");
+            Potion potion = new Potion();
+            p.addItem(potion);
         }
 
-        if (random == 2){
+        //20% chance to find some armor
+        if (random > 5 && random <= 7){
             System.out.println("You open the chest and find a new set of armor.");
             p.level += 1;
             p.strength += 1;
             p.speed -= 1;
         }
 
-        if (random == 3){
+        //10% chance to find the legendary weapon
+        if (random > 7 && random <= 8){
             System.out.println("You open the chest and find the legendary weapon [blank]");
         }
 
-        if (random == 4){
+        //20% chance to find a rat
+        if (random > 8 && random <= 10){
             System.out.println("You open the chest and there is nothing but a rat. It bites you as it escapes.(health -1)");
             p.currentHealth = p.currentHealth - 1;
         }
