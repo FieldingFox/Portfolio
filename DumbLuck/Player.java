@@ -8,6 +8,7 @@ public class Player {
     int mana;
     Weapon type;
     Item itemList[] = new Item[3];
+    Attack attackList[] = new Attack[4];
 
     public Player(){
         level = 10;
@@ -43,6 +44,20 @@ public class Player {
         type = weapon;
     }
 
+    public void setAttackList(Weapon weapon){
+        if (weapon.name.equals("sword")){
+
+        }
+
+        if (weapon.name.equals("staff")){
+
+        }
+
+        if (weapon.name.equals("bow")){
+
+        }
+    }
+    
     public void printWeapon(Weapon weapon){
         System.out.println(weapon.name);
     }

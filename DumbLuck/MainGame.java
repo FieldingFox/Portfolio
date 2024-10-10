@@ -161,9 +161,17 @@
      * Note: not called in caveFinal b/c the last cave is set to be a guranteed battle level
      */
     public static void fightInteraction(int rank){
-
+        if(rank == 1){
+            System.out.println("As you enter the cave, a goblin appears before you.");
+            
+        }
     }
 
+    public static void fightScene(int rank){
+        if (rank == 1){
+            
+        }
+    }
     /*
      * The scenario if the cave is empty
      */
