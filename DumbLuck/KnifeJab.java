@@ -1,4 +1,5 @@
 public class KnifeJab extends Attack{
+    int bloodLoss;
 
     public KnifeJab(){
         name = "KnifeJab";
@@ -6,5 +7,6 @@ public class KnifeJab extends Attack{
         damage = 3;
         accuracy = 90;
         critChance = 10;
+        bloodLoss = 10;
     }
 }

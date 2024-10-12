@@ -74,6 +74,10 @@ public class Player {
         }
     }
 
+    /*
+     * Description: after obtaining an item from a chest, this will be called to add the item to the 
+     * player's item list
+     */
     public void addItem(Item item){
         for (int i = 0; i < itemList.length; i++){
             if(itemList[i] == null){

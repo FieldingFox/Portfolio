@@ -13,6 +13,7 @@
 
  public class MainGame {
     public static Player p = new Player();    //creates new player object p
+    public static Goblin g = new Goblin();      //creates goblin enemy g
     public static void main(String[] args){
         /* testing zone
         if(true){
@@ -145,14 +146,14 @@
     /* 
      * The second cave the user enters before the final level
     */
-    public static void caveTwo(int r, String choice){
+    public static void caveTwo(){
 
     }
 
     /* 
      * The last cave needed to beat before finishing the game
     */
-    public static void caveFinal(int r, String choice){
+    public static void caveFinal(){
 
     }
 
@@ -161,17 +162,46 @@
      * Note: not called in caveFinal b/c the last cave is set to be a guranteed battle level
      */
     public static void fightInteraction(int rank){
+        Scanner userIn = new Scanner(System.in);
+        String response;
         if(rank == 1){
             System.out.println("As you enter the cave, a goblin appears before you.");
-            
+            while(g.currentHealth > 0 || p.currentHealth > 0){
+                if(p.speed > g.speed){
+
+                }
+                else {
+
+                }
+            }
+            if(g.currentHealth == 0){
+                System.out.println("The goblin has been defeated.");
+                System.out.println("You have gained a level. All stats have been increased by 1.");
+                p.level++;
+                p.strength++;
+                p.mana++;
+                p.maxHealth++;
+                p.currentHealth++;
+                p.speed++;
+                p.printPlayerStats();
+                caveTwo();
+            }
+
+            else if(p.currentHealth == 0){
+                System.out.println("You Died!");
+                System.out.println("Try again?(y/n)");
+                response = userIn.nextLine();
+                if(response.equals("y")){
+                    MainGame.main(null);
+                }
+                else if(response.equals("n")){
+                    System.exit(0);
+                }
+            }
         }
+        userIn.close();
     }
 
-    public static void fightScene(int rank){
-        if (rank == 1){
-            
-        }
-    }
     /*
      * The scenario if the cave is empty
      */
@@ -186,6 +216,7 @@
             p.currentHealth = p.currentHealth + healthIncrease;
         }
         p.printPlayerStats();
+        caveTwo();
     }
 
     /*
@@ -198,6 +229,7 @@
             p.currentHealth = p.currentHealth - 1;
         }
         p.printPlayerStats();
+        caveTwo();
     }
 
     /*
@@ -209,6 +241,7 @@
             treasureRoll1();
         }
         p.printPlayerStats();
+        caveTwo();
     }
 
     /*
