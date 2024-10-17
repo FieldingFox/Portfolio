@@ -7,4 +7,8 @@ public class Goblin extends Enemy{
         currentHealth = 6;
         attackList[0] = knifeJab;
     }
+
+    public void attackTurn(){
+        
+    }
 }

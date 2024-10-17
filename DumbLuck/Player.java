@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Player {
     String name;
     int level ;
@@ -44,9 +46,13 @@ public class Player {
         type = weapon;
     }
 
+    /*
+     * Description: sets the players list of possible attacks depending on their weapon of choice
+     */
     public void setAttackList(Weapon weapon){
         if (weapon.name.equals("sword")){
-
+            Slash slash = new Slash();
+            attackList[0] = slash;
         }
 
         if (weapon.name.equals("staff")){
@@ -86,5 +92,16 @@ public class Player {
             }
         }
         System.out.println("You have too many items!");
+    }
+
+    public void attackTurn(){
+        Scanner userIn = new Scanner(System.in);
+        System.out.println("Which attack would you like to use");
+        System.out.println("a. " + attackList[0].name);
+        String choice = userIn.nextLine();
+        if (choice.equals("a")){
+
+        }
+        userIn.close();
     }
 }

@@ -168,10 +168,12 @@
             System.out.println("As you enter the cave, a goblin appears before you.");
             while(g.currentHealth > 0 || p.currentHealth > 0){
                 if(p.speed > g.speed){
-
+                    p.attackTurn();
+                    g.attackTurn();
                 }
                 else {
-
+                    g.attackTurn();
+                    p.attackTurn();
                 }
             }
             if(g.currentHealth == 0){
