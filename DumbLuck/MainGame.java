@@ -164,11 +164,30 @@
     public static void fightInteraction(int rank){
         Scanner userIn = new Scanner(System.in);
         String response;
+        Random rand = new Random();
+        int crit = rand.nextInt(100);
+        int acc = rand.nextInt(100);
         if(rank == 1){
             System.out.println("As you enter the cave, a goblin appears before you.");
+
             while(g.currentHealth > 0 || p.currentHealth > 0){
                 if(p.speed > g.speed){
-                    p.attackTurn();
+                    Attack attack = p.attackTurn();
+
+                    if (acc > attack.accuracy){
+                        if (crit <= attack.critChance){
+                            g.currentHealth = g.currentHealth - 2 * (attack.damage);
+                        }
+
+                        else {
+                            g.currentHealth = g.currentHealth - (attack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("Your attack missed!");
+                    }
+
                     g.attackTurn();
                 }
                 else {

@@ -94,14 +94,18 @@ public class Player {
         System.out.println("You have too many items!");
     }
 
-    public void attackTurn(){
+    public Attack attackTurn(){
         Scanner userIn = new Scanner(System.in);
         System.out.println("Which attack would you like to use");
         System.out.println("a. " + attackList[0].name);
         String choice = userIn.nextLine();
-        if (choice.equals("a")){
-
-        }
         userIn.close();
+        if (choice.equals("a")){
+            System.out.println("You used Slash");
+            return attackList[0];
+        }
+        else {
+            return attackList[1];
+        }
     }
 }
