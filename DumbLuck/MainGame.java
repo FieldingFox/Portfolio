@@ -38,6 +38,7 @@
         System.out.println("Type your answer as the letter next to your choice");
         String choice = userIn.nextLine();   //sets choice to user's weapon choice
         p.setWeaponType(weaponChoice(choice));      //calls player class set weapon type function using the return of the weaponChoice function
+        p.setAttackList(weaponChoice(choice));  //sets the players attack options
         System.out.println("Hello " + p.name + "\n" + "Here are your stats");
         p.printPlayerStats();
         gameStart();
@@ -74,7 +75,7 @@
         Scanner userIn = new Scanner(System.in);    //takes user's input
         System.out.println("You see two tunnels ahead of you. Which tunnel do you enter?");
         System.out.println("a. Right or b. Left");
-        System.out.println("Type your answer as the number of your choice");
+        System.out.println("Type your answer as the letter of your choice");
         String choice = userIn.nextLine();
 
         if(choice.equals("a") || choice.equals("b")){
@@ -173,8 +174,7 @@
             while(g.currentHealth > 0 || p.currentHealth > 0){
                 if(p.speed > g.speed){
                     Attack attack = p.attackTurn();
-
-                    if (acc > attack.accuracy){
+                    if (acc > attack.accuracy && acc != 100){
                         if (crit <= attack.critChance){
                             g.currentHealth = g.currentHealth - 2 * (attack.damage);
                         }
@@ -188,11 +188,53 @@
                         System.out.println("Your attack missed!");
                     }
 
-                    g.attackTurn();
+                    Attack eattack = g.attackTurn();
+                    if (acc > eattack.accuracy){
+                        if (crit <= eattack.critChance){
+                            p.currentHealth = p.currentHealth - 2 * (eattack.damage);
+                        }
+
+                        else {
+                            p.currentHealth = p.currentHealth - (eattack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("The goblin's attack missed!");
+                    }
                 }
+
                 else {
                     g.attackTurn();
+                    Attack eattack = g.attackTurn();
+                    if (acc > eattack.accuracy){
+                        if (crit <= eattack.critChance){
+                            p.currentHealth = p.currentHealth - 2 * (eattack.damage);
+                        }
+
+                        else {
+                            p.currentHealth = p.currentHealth - (eattack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("The goblin's attack missed!");
+                    }
                     p.attackTurn();
+                    Attack attack = p.attackTurn();
+                    if (acc > attack.accuracy){
+                        if (crit <= attack.critChance){
+                            g.currentHealth = g.currentHealth - 2 * (attack.damage);
+                        }
+
+                        else {
+                            g.currentHealth = g.currentHealth - (attack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("Your attack missed!");
+                    }
                 }
             }
             if(g.currentHealth == 0){

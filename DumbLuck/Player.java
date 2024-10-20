@@ -25,11 +25,13 @@ public class Player {
      * Description: When run will print out all of player's stats
      */
     public void printPlayerStats(){
+        Potion potion = new Potion();
+        itemList[0] = potion;
         System.out.println(name + "'s stats");
         System.out.println("Level: " + level);
         System.out.println("Strength: " + strength);
         System.out.println("Speed: " + speed);
-        System.out.println("Health: " + currentHealth);
+        System.out.println("Current Health: " + currentHealth);
         System.out.println("Mana: " + mana);
         System.out.println("Weapon: " + type.name);
         for (int i = 0; i < itemList.length; i++){
@@ -97,15 +99,21 @@ public class Player {
     public Attack attackTurn(){
         Scanner userIn = new Scanner(System.in);
         System.out.println("Which attack would you like to use");
+        //printAttacks();
         System.out.println("a. " + attackList[0].name);
         String choice = userIn.nextLine();
-        userIn.close();
         if (choice.equals("a")){
             System.out.println("You used Slash");
+            userIn.close();
             return attackList[0];
         }
         else {
+            userIn.close();
             return attackList[1];
         }
+    }
+
+    public void printAttacks(){
+       
     }
 }

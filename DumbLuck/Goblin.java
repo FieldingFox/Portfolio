@@ -8,7 +8,9 @@ public class Goblin extends Enemy{
         attackList[0] = knifeJab;
     }
 
-    public void attackTurn(){
-        
+    //note that this will be changed in the final deliverable
+    //placeholder for enemy AI
+    public Attack attackTurn(){
+        return attackList[0];
     }
 }
