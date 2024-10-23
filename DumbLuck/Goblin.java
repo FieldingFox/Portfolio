@@ -11,6 +11,7 @@ public class Goblin extends Enemy{
     //note that this will be changed in the final deliverable
     //placeholder for enemy AI
     public Attack attackTurn(){
+        System.out.println("The goblin used Knife Jab");
         return attackList[0];
     }
 }

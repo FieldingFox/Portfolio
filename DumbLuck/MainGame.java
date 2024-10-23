@@ -166,21 +166,25 @@
         Scanner userIn = new Scanner(System.in);
         String response;
         Random rand = new Random();
-        int crit = rand.nextInt(100);
-        int acc = rand.nextInt(100);
+        int acc;
+        int crit;
         if(rank == 1){
             System.out.println("As you enter the cave, a goblin appears before you.");
 
-            while(g.currentHealth > 0 || p.currentHealth > 0){
+            while(g.currentHealth > 0 && p.currentHealth > 0){
                 if(p.speed > g.speed){
                     Attack attack = p.attackTurn();
-                    if (acc > attack.accuracy && acc != 100){
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                        crit = rand.nextInt(100);
                         if (crit <= attack.critChance){
                             g.currentHealth = g.currentHealth - 2 * (attack.damage);
+                            System.out.println(g.currentHealth);
                         }
 
                         else {
                             g.currentHealth = g.currentHealth - (attack.damage);
+                            System.out.println(g.currentHealth);
                         }
                     }
 
@@ -188,8 +192,14 @@
                         System.out.println("Your attack missed!");
                     }
 
+                    if(g.currentHealth <= 0){
+                        break;
+                    }
+
                     Attack eattack = g.attackTurn();
-                    if (acc > eattack.accuracy){
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
+                        crit = rand.nextInt(100);
                         if (crit <= eattack.critChance){
                             p.currentHealth = p.currentHealth - 2 * (eattack.damage);
                         }
@@ -204,10 +214,12 @@
                     }
                 }
 
-                else {
+                /*else {
                     g.attackTurn();
                     Attack eattack = g.attackTurn();
-                    if (acc > eattack.accuracy){
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
+                        crit = rand.nextInt(100);
                         if (crit <= eattack.critChance){
                             p.currentHealth = p.currentHealth - 2 * (eattack.damage);
                         }
@@ -222,7 +234,9 @@
                     }
                     p.attackTurn();
                     Attack attack = p.attackTurn();
-                    if (acc > attack.accuracy){
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                        crit = rand.nextInt(100);
                         if (crit <= attack.critChance){
                             g.currentHealth = g.currentHealth - 2 * (attack.damage);
                         }
@@ -235,7 +249,7 @@
                     else {
                         System.out.println("Your attack missed!");
                     }
-                }
+                }*/
             }
             if(g.currentHealth == 0){
                 System.out.println("The goblin has been defeated.");

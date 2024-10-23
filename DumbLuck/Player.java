@@ -34,9 +34,16 @@ public class Player {
         System.out.println("Current Health: " + currentHealth);
         System.out.println("Mana: " + mana);
         System.out.println("Weapon: " + type.name);
+        System.out.print("Item list: ");
         for (int i = 0; i < itemList.length; i++){
             if(itemList[i] != null){
-                System.out.println("Item list: " + itemList[i].name);
+                System.out.print(itemList[i].name);
+                if(itemList[i+1] != null){
+                    System.out.print(", ");
+                }
+            }
+            else {
+                System.out.println(" ");
             }
         }
     }
@@ -98,22 +105,42 @@ public class Player {
 
     public Attack attackTurn(){
         Scanner userIn = new Scanner(System.in);
-        System.out.println("Which attack would you like to use");
+        System.out.println("Which attack would you like to use?");
         //printAttacks();
-        System.out.println("a. " + attackList[0].name);
+        System.out.println("a. " + attackList[0].name + "b. " + attackList[1].name + "c. " + attackList[2].name + "d. " + 
+            attackList[3].name + "e. Item Bag");
         String choice = userIn.nextLine();
+
         if (choice.equals("a")){
             System.out.println("You used Slash");
-            userIn.close();
             return attackList[0];
         }
-        else {
-            userIn.close();
+
+        if (choice.equals("b")){
+            System.out.println("You used Thrust");
+  
             return attackList[1];
         }
-    }
 
-    public void printAttacks(){
-       
+        if (choice.equals("c")){
+            System.out.println("You used Flurry");
+
+            return attackList[2];
+        }
+
+        if (choice.equals("d")){
+            System.out.println("You used Shield Bash");
+
+            return attackList[3];
+        }
+
+        if (choice.equals("e")){
+            System.out.println("Which item would you like to use?");
+            Attack attack = new Attack();
+            attack.name = "potion";
+            return attack;
+        }
+
+        return null;
     }
 }
