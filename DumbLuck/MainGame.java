@@ -172,12 +172,14 @@
             System.out.println("As you enter the cave, a goblin appears before you.");
 
             while(g.currentHealth > 0 && p.currentHealth > 0){
+                p.printCurrentHealth();
+                g.printCurrentHealth();
                 if(p.speed > g.speed){
                     Attack attack = p.attackTurn();
                     if(attack.name.equals("potion")){
                         System.out.println("You have used a potion(Health +3)");
                         p.currentHealth += 3;
-                        p.printPlayerStats();
+                        p.printCurrentHealth();
                     }
 
                     else {
@@ -185,13 +187,12 @@
                         if (acc > 100 - attack.accuracy || attack.accuracy == 100){
                             crit = rand.nextInt(100);
                             if (crit <= attack.critChance){
+                                System.out.println("Critical Hit!");
                                 g.currentHealth = g.currentHealth - 2 * (attack.damage);
-                                System.out.println(g.currentHealth);
                             }
 
                             else {
                                 g.currentHealth = g.currentHealth - (attack.damage);
-                                System.out.println(g.currentHealth);
                             }
                         }
 
@@ -203,12 +204,14 @@
                     if(g.currentHealth <= 0){
                         break;
                     }
+                    g.printCurrentHealth();
 
                     Attack eattack = g.attackTurn();
                     acc = rand.nextInt(100);
                     if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
                         crit = rand.nextInt(100);
                         if (crit <= eattack.critChance){
+                            System.out.println("Critical Hit!");
                             p.currentHealth = p.currentHealth - 2 * (eattack.damage);
                         }
 
@@ -220,6 +223,7 @@
                     else {
                         System.out.println("The goblin's attack missed!");
                     }
+                    p.printCurrentHealth();
                 }
 
                 /*else {

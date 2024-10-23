@@ -14,4 +14,8 @@ public class Goblin extends Enemy{
         System.out.println("The goblin used Knife Jab");
         return attackList[0];
     }
+
+    public void printCurrentHealth(){
+        System.out.println(name + "'s current health: " + currentHealth);
+    }
 }

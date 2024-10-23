@@ -61,13 +61,13 @@ public class Player {
     public void setAttackList(Weapon weapon){
         if (weapon.name.equals("sword")){
             Slash slash = new Slash();
-            Slash slash2 = new Slash();
-            Slash slash3 = new Slash();
-            Slash slash4 = new Slash();
+            Thrust thrust = new Thrust();
+            Flurry flurry = new Flurry();
+            ShieldBash shieldBash = new ShieldBash();
             attackList[0] = slash;
-            attackList[1] = slash2;
-            attackList[2] = slash3;
-            attackList[3] = slash4;
+            attackList[1] = thrust;
+            attackList[2] = flurry;
+            attackList[3] = shieldBash;
         }
 
         if (weapon.name.equals("staff")){
@@ -166,5 +166,9 @@ public class Player {
             }
         }
         System.out.println(" ");
+    }
+
+    public void printCurrentHealth(){
+        System.out.println(name + "'s current health: " + currentHealth);
     }
 }
