@@ -61,7 +61,13 @@ public class Player {
     public void setAttackList(Weapon weapon){
         if (weapon.name.equals("sword")){
             Slash slash = new Slash();
+            Slash slash2 = new Slash();
+            Slash slash3 = new Slash();
+            Slash slash4 = new Slash();
             attackList[0] = slash;
+            attackList[1] = slash2;
+            attackList[2] = slash3;
+            attackList[3] = slash4;
         }
 
         if (weapon.name.equals("staff")){
@@ -107,8 +113,8 @@ public class Player {
         Scanner userIn = new Scanner(System.in);
         System.out.println("Which attack would you like to use?");
         //printAttacks();
-        System.out.println("a. " + attackList[0].name + "b. " + attackList[1].name + "c. " + attackList[2].name + "d. " + 
-            attackList[3].name + "e. Item Bag");
+        System.out.println("a. " + attackList[0].name + " b. " + attackList[1].name + " c. " + attackList[2].name + " d. " + 
+            attackList[3].name + " e. Item Bag");
         String choice = userIn.nextLine();
 
         if (choice.equals("a")){
@@ -136,11 +142,29 @@ public class Player {
 
         if (choice.equals("e")){
             System.out.println("Which item would you like to use?");
+            printItemList();
+            choice = userIn.nextLine();
+            /*if(choice.equals("a")){
+
+            }*/
             Attack attack = new Attack();
             attack.name = "potion";
             return attack;
         }
 
         return null;
+    }
+
+    public void printItemList(){
+        if(itemList[0] != null){
+            System.out.print("a. " + itemList[0].name);
+            if(itemList[1] != null){
+                System.out.print(" b. " + itemList[1].name);
+                if(itemList[2] != null){
+                    System.out.print(" c. " + itemList[2].name);
+                }
+            }
+        }
+        System.out.println(" ");
     }
 }

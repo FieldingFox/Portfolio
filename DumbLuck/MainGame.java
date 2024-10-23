@@ -174,22 +174,30 @@
             while(g.currentHealth > 0 && p.currentHealth > 0){
                 if(p.speed > g.speed){
                     Attack attack = p.attackTurn();
-                    acc = rand.nextInt(100);
-                    if (acc > 100 - attack.accuracy || attack.accuracy == 100){
-                        crit = rand.nextInt(100);
-                        if (crit <= attack.critChance){
-                            g.currentHealth = g.currentHealth - 2 * (attack.damage);
-                            System.out.println(g.currentHealth);
-                        }
-
-                        else {
-                            g.currentHealth = g.currentHealth - (attack.damage);
-                            System.out.println(g.currentHealth);
-                        }
+                    if(attack.name.equals("potion")){
+                        System.out.println("You have used a potion(Health +3)");
+                        p.currentHealth += 3;
+                        p.printPlayerStats();
                     }
 
                     else {
-                        System.out.println("Your attack missed!");
+                        acc = rand.nextInt(100);
+                        if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                            crit = rand.nextInt(100);
+                            if (crit <= attack.critChance){
+                                g.currentHealth = g.currentHealth - 2 * (attack.damage);
+                                System.out.println(g.currentHealth);
+                            }
+
+                            else {
+                                g.currentHealth = g.currentHealth - (attack.damage);
+                                System.out.println(g.currentHealth);
+                            }
+                        }
+
+                        else {
+                            System.out.println("Your attack missed!");
+                        }
                     }
 
                     if(g.currentHealth <= 0){
