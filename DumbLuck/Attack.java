@@ -4,4 +4,5 @@ public class Attack {
     int damage;
     int accuracy;
     int critChance;
+    int manaCost;
 }

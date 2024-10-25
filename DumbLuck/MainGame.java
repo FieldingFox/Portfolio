@@ -263,7 +263,7 @@
                     }
                 }*/
             }
-            if(g.currentHealth == 0){
+            if(g.currentHealth <= 0){
                 System.out.println("The goblin has been defeated.");
                 System.out.println("You have gained a level. All stats have been increased by 1.");
                 p.level++;
@@ -276,7 +276,7 @@
                 caveTwo();
             }
 
-            else if(p.currentHealth == 0){
+            else if(p.currentHealth <= 0){
                 System.out.println("You Died!");
                 System.out.println("Try again?(y/n)");
                 response = userIn.nextLine();

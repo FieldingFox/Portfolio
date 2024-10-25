@@ -71,11 +71,25 @@ public class Player {
         }
 
         if (weapon.name.equals("staff")){
-
+            Heal heal = new Heal();
+            FireBall fireBall = new FireBall();
+            ThunderBolt thunderBolt = new ThunderBolt();
+            RockThrow rockThrow = new RockThrow();
+            attackList[0] = heal;
+            attackList[1] = fireBall;
+            attackList[2] = thunderBolt;
+            attackList[3] = rockThrow;
         }
 
         if (weapon.name.equals("bow")){
-
+            ArrowStorm arrowStorm = new ArrowStorm();
+            FireArrow fireArrow = new FireArrow();
+            SharpShot sharpShot = new SharpShot();
+            HeavyShot heavyShot = new HeavyShot();
+            attackList[0] = arrowStorm;
+            attackList[1] = fireArrow;
+            attackList[2] = sharpShot;
+            attackList[3] = heavyShot;
         }
     }
     
@@ -118,24 +132,24 @@ public class Player {
         String choice = userIn.nextLine();
 
         if (choice.equals("a")){
-            System.out.println("You used Slash");
+            System.out.println("You used " + attackList[0].name);
             return attackList[0];
         }
 
         if (choice.equals("b")){
-            System.out.println("You used Thrust");
+            System.out.println("You used " + attackList[1].name);
   
             return attackList[1];
         }
 
         if (choice.equals("c")){
-            System.out.println("You used Flurry");
+            System.out.println("You used " + attackList[2].name);
 
             return attackList[2];
         }
 
         if (choice.equals("d")){
-            System.out.println("You used Shield Bash");
+            System.out.println("You used " + attackList[3].name);
 
             return attackList[3];
         }
