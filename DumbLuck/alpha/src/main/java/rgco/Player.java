@@ -20,14 +20,14 @@ public class Player {
         maxHealth = 10;
         currentHealth = 10;
         mana = 10;
+        Potion potion = new Potion();
+        itemList[0] = potion;
     }
 
     /*
      * Description: When run will print out all of player's stats
      */
     public void printPlayerStats(){
-        Potion potion = new Potion();
-        itemList[0] = potion;
         System.out.println(name + "'s stats");
         System.out.println("Level: " + level);
         System.out.println("Strength: " + strength);
