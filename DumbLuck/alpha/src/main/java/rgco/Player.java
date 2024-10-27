@@ -110,6 +110,15 @@ public class Player {
         }
     }
 
+    public String playerDeath(){
+        Scanner userIn = new Scanner(System.in);
+        System.out.println("You have died!");
+        System.out.println("Would you like to play again?");
+        String choice = userIn.nextLine();
+        userIn.close();
+        return choice;
+    }
+
     /*
      * Description: after obtaining an item from a chest, this will be called to add the item to the 
      * player's item list

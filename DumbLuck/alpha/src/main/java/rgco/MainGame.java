@@ -149,7 +149,48 @@ import java.util.Random;
      * The second cave the user enters before the final level
     */
     public static void caveTwo(){
+        Scanner userIn = new Scanner(System.in);
+        Random rand = new Random();
+        int random = rand.nextInt(100);
+        System.out.println("As you leave the last cave, you see two tunnels in front of you.");
+        System.out.println("Which tunnel do you pick?");
+        System.out.println("a. Right or b. Left");
+        String choice = userIn.nextLine();
+        if(choice.equals("a")){
+            if(random <= 50){
+                System.out.println("Nothing!");
+                nadaCave();
+            }
 
+            else if(random > 50 && random <= 75){
+                System.out.println("Trap!");
+                trapInteraction(2);
+            }
+
+            else if(random > 75 && random <= 100){
+                System.out.println("Fight!");
+                fightInteraction(2);
+            }
+        }
+
+        else if(choice.equals("b")){
+            if(random <= 50){
+                System.out.println("Treasure!");
+                treasureInteraction(2);
+            }
+
+            else if(random > 50 && random <= 75){
+                System.out.println("Trap!");
+                trapInteraction(2);
+            }
+
+            else if(random > 75 && random <= 100){
+                System.out.println("Fight!");
+                fightInteraction(2);
+            }
+        }
+
+        userIn.close();
     }
 
     /* 
@@ -315,11 +356,28 @@ import java.util.Random;
     public static void trapInteraction(int rank){
         if (rank == 1){
             System.out.println("As you enter the cave, a bat is spooked and flys out of the cave.");
-            System.out.println("As it flies out, it hits you square in the face.(health -1)");
-            p.currentHealth = p.currentHealth - 1;
+            System.out.println("As it flies out, it hits you square in the face.(Health -1)");
+            p.currentHealth -= 1;
+            p.printPlayerStats();
+            caveTwo();
         }
-        p.printPlayerStats();
-        caveTwo();
+        
+        else if (rank == 2){
+            System.out.println("The first step you take down the path, the ground drops from under you.");
+            System.out.println("The brief second before you hit the ground, you see that the bottom of the pit is filled with spikes.(Health -4)");
+            p.currentHealth -= 4;
+            if (p.currentHealth <= 0){
+                String response = p.playerDeath();
+                if (response.equals("y")){
+                    MainGame.main(null);
+                }
+                else if (response.equals("n")){
+                    System.exit(0);
+                }
+            }
+            p.printPlayerStats();
+            caveFinal();
+        }
     }
 
     /*
