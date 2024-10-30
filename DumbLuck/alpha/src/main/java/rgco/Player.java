@@ -92,6 +92,17 @@ public class Player {
             attackList[2] = sharpShot;
             attackList[3] = heavyShot;
         }
+
+        if (weapon.name.equals("excalibur")){
+            HolyLight holylight = new HolyLight();
+            Smite smite = new Smite();
+            Disintegration disin = new Disintegration();
+            PerfectSlash perfectSlash = new PerfectSlash();
+            attackList[0] = holylight;
+            attackList[1] = smite;
+            attackList[2] = disin;
+            attackList[3] = perfectSlash;
+        }
     }
     
     public void printWeapon(Weapon weapon){

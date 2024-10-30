@@ -384,12 +384,17 @@ import java.util.Random;
      * The treasure interaction that can be set to 2 different rarities depending on the cave it occured in
      */
     public static void treasureInteraction(int rank){
+        System.out.println("You enter the cave and see a treasure chest in the back corner.");
         if (rank == 1){
-            System.out.println("You enter the cave and see a treasure chest in the back corner.");
             treasureRoll1();
+            p.printPlayerStats();
+            caveTwo();
         }
-        p.printPlayerStats();
-        caveTwo();
+        if ( rank == 2){
+            treasureRoll2();
+            p.printPlayerStats();
+            caveFinal();
+        }
     }
 
     /*
@@ -410,20 +415,79 @@ import java.util.Random;
         //20% chance to find some armor
         if (random > 5 && random <= 7){
             System.out.println("You open the chest and find a new set of armor.");
-            p.level += 1;
-            p.strength += 1;
+            p.level += 2;
+            p.maxHealth += 2;
             p.speed -= 1;
         }
 
         //10% chance to find the legendary weapon
         if (random > 7 && random <= 8){
-            System.out.println("You open the chest and find the legendary weapon [blank]");
+            if (p.type.name.equals("sword")){
+                System.out.println("You open the chest and find the legendary weapon Excalibur");
+                Excalibur e = new Excalibur();
+                p.setWeaponType(e);
+                p.setAttackList(e);
+            }
+
+            if (p.type.name.equals("staff")){
+                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+            }
+
+            if (p.type.name.equals("bow")){
+                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+            }
+            
         }
 
         //20% chance to find a rat
         if (random > 8 && random <= 10){
             System.out.println("You open the chest and there is nothing but a rat. It bites you as it escapes.(health -1)");
             p.currentHealth = p.currentHealth - 1;
+        }
+    }
+
+    public static void treasureRoll2(){
+        Random rand = new Random();
+        int random = rand.nextInt(10);
+
+        //40% chance to find a potion
+        if (random <= 4){
+            System.out.println("You open the chest and find a potion.");
+            Potion potion = new Potion();
+            p.addItem(potion);
+        }
+
+        //20% chance to find some armor
+        if (random > 4 && random <= 6){
+            System.out.println("You open the chest and find a new set of armor.");
+            p.level += 3;
+            p.maxHealth += 3;
+            p.speed -= 2;
+        }
+
+        //20% chance to find the legendary weapon
+        if (random > 6 && random <= 8){
+            if (p.type.name.equals("sword")){
+                System.out.println("You open the chest and find the legendary weapon Excalibur");
+                Excalibur e = new Excalibur();
+                p.setWeaponType(e);
+                p.setAttackList(e);
+            }
+
+            if (p.type.name.equals("staff")){
+                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+            }
+
+            if (p.type.name.equals("bow")){
+                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+            }
+            
+        }
+
+        //20% chance to find a rat
+        if (random > 8 && random <= 10){
+            System.out.println("You open the chest and the chest becomes a trap and bites you back.(health -3)");
+            p.currentHealth = p.currentHealth - 3;
         }
     }
  }
