@@ -470,16 +470,22 @@ import java.util.Random;
             if (p.type.name.equals("sword")){
                 System.out.println("You open the chest and find the legendary weapon Excalibur");
                 Excalibur e = new Excalibur();
-                p.setWeaponType(e);
+                p.setWeaponType(e);     //sets player's weapon as excalibur and the new attack list
                 p.setAttackList(e);
             }
 
             if (p.type.name.equals("staff")){
-                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+                System.out.println("You open the chest and find the legendary weapon Celeste");     //legendary magic staff
+                Celeste c = new Celeste();
+                p.setWeaponType(c);
+                p.setAttackList(c);
             }
 
             if (p.type.name.equals("bow")){
-                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+                System.out.println("You open the chest and find the legendary weapon WindBreaker");     //legendary bow weapon
+                WindBreaker w = new WindBreaker();
+                p.setWeaponType(w);
+                p.setAttackList(w);
             }
             
         }

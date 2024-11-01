@@ -103,6 +103,29 @@ public class Player {
             attackList[2] = disin;
             attackList[3] = perfectSlash;
         }
+
+        if (weapon.name.equals("Celeste")){
+            HellBlaze hellBlaze = new HellBlaze();
+            Meteor meteor = new Meteor();
+            OtherWorldlyBlessing owb = new OtherWorldlyBlessing();
+            PureWhite pureWhite = new PureWhite();
+            attackList[0] = hellBlaze;
+            attackList[1] = meteor;
+            attackList[2] = owb;
+            attackList[3] = pureWhite;
+        }
+
+        //in progress
+        if (weapon.name.equals("Wind Breaker")){
+            Sniper sniper = new Sniper();
+            Meteor meteor = new Meteor();
+            OtherWorldlyBlessing owb = new OtherWorldlyBlessing();
+            PureWhite pureWhite = new PureWhite();
+            attackList[0] = sniper;
+            attackList[1] = meteor;
+            attackList[2] = owb;
+            attackList[3] = pureWhite;
+        }
     }
     
     public void printWeapon(Weapon weapon){
