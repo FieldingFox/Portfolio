@@ -120,7 +120,7 @@ import java.util.Random;
             }
             else if(r > fightChance && r <= 75){
                 System.out.println("Nothing!");
-                nadaCave();
+                nadaCave(1);
             }
             else if(r > 75 && r <= 100){
                 System.out.println("Treasure!");
@@ -137,7 +137,7 @@ import java.util.Random;
             }
             else if(r > fightChance && r <= 75){
                 System.out.println("Nothing!");
-                nadaCave();
+                nadaCave(1);
             }
             else if(r > 75 && r <= 100){
                 System.out.println("Treasure!");
@@ -159,7 +159,7 @@ import java.util.Random;
         if(choice.equals("a")){
             if(random <= 50){
                 System.out.println("Nothing!");
-                nadaCave();
+                nadaCave(2);
             }
 
             else if(random > 50 && random <= 75){
@@ -310,10 +310,12 @@ import java.util.Random;
                 System.out.println("You have gained a level. All stats have been increased by 1.");
                 p.level++;
                 p.strength++;
-                p.mana++;
+                p.maxMana++;
+                p.currentMana++;
                 p.maxHealth++;
                 p.currentHealth++;
                 p.speed++;
+                p.refillMana();
                 p.printPlayerStats();
                 caveTwo();
             }
@@ -336,7 +338,7 @@ import java.util.Random;
     /*
      * The scenario if the cave is empty
      */
-    public static void nadaCave(){
+    public static void nadaCave(int x){
         System.out.println("You enter the cave and find that nothing is there.");
         System.out.println("You decide to take a rest and fix your weapons.(Health +5)");
         if(!p.isFullHealth() && p.currentHealth + 5 <= p.maxHealth){
@@ -347,7 +349,13 @@ import java.util.Random;
             p.currentHealth = p.currentHealth + healthIncrease;
         }
         p.printPlayerStats();
-        caveTwo();
+        if (x == 1){
+            caveTwo();
+        }
+        
+        if (x ==2){
+            caveFinal();
+        }
     }
 
     /*

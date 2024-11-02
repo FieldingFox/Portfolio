@@ -8,7 +8,8 @@ public class Player {
     int speed;
     int maxHealth;
     int currentHealth;
-    int mana;
+    int maxMana;
+    int currentMana;
     Weapon type;
     Item itemList[] = new Item[3];
     Attack attackList[] = new Attack[4];
@@ -19,7 +20,8 @@ public class Player {
         speed = 10;
         maxHealth = 10;
         currentHealth = 10;
-        mana = 10;
+        maxMana = 10;
+        currentMana = 10;
         Potion potion = new Potion();
         itemList[0] = potion;
     }
@@ -33,15 +35,12 @@ public class Player {
         System.out.println("Strength: " + strength);
         System.out.println("Speed: " + speed);
         System.out.println("Current Health: " + currentHealth);
-        System.out.println("Mana: " + mana);
+        System.out.println("Mana: " + currentMana);
         System.out.println("Weapon: " + type.name);
         System.out.print("Item list: ");
         for (int i = 0; i < itemList.length; i++){
             if(itemList[i] != null){
-                System.out.print(itemList[i].name);
-                if(itemList[i+1] != null){
-                    System.out.print(", ");
-                }
+                System.out.print(itemList[i].name + ";");
             }
             else {
                 System.out.println(" ");
@@ -115,16 +114,15 @@ public class Player {
             attackList[3] = pureWhite;
         }
 
-        //in progress
         if (weapon.name.equals("Wind Breaker")){
             Sniper sniper = new Sniper();
-            Meteor meteor = new Meteor();
-            OtherWorldlyBlessing owb = new OtherWorldlyBlessing();
-            PureWhite pureWhite = new PureWhite();
+            SupersonicShock sss = new SupersonicShock();
+            ExplosiveShot exs = new ExplosiveShot();
+            TornadoBlast tb = new TornadoBlast();
             attackList[0] = sniper;
-            attackList[1] = meteor;
-            attackList[2] = owb;
-            attackList[3] = pureWhite;
+            attackList[1] = sss;
+            attackList[2] = exs;
+            attackList[3] = tb;
         }
     }
     
@@ -228,5 +226,9 @@ public class Player {
 
     public void printCurrentHealth(){
         System.out.println(name + "'s current health: " + currentHealth);
+    }
+
+    public void refillMana(){
+        this.currentMana = this.maxMana;
     }
 }
