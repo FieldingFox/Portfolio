@@ -332,6 +332,12 @@ import java.util.Random;
                 }
             }
         }
+
+        if(rank == 2){
+            System.out.println("As you find your way throught the darkeness, you run into a giant black evil eye!");
+
+            
+        }
         userIn.close();
     }
 
