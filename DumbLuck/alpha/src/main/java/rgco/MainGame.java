@@ -13,8 +13,10 @@ import java.util.Scanner;
 import java.util.Random;
 
  public class MainGame {
-    public static Player p = new Player();    //creates new player object p
-    public static Goblin g = new Goblin();      //creates goblin enemy g
+    public static Player p = new Player();          //creates new player object called p
+    public static Goblin g = new Goblin();          //creates goblin enemy called g
+    public static EvilEye e = new EvilEye();        //creates evil eye enemy called e
+    public static FinalDemon d = new FinalDemon();  //creates final boss demon enemy called d
     public static void main(String[] args){
         /* testing zone
         if(true){
@@ -197,7 +199,18 @@ import java.util.Random;
      * The last cave needed to beat before finishing the game
     */
     public static void caveFinal(){
+        System.out.println("As you enter the final cave, there is nothing but pure darkness before you.");
+        //spelling may be off; check later
+        System.out.println("You cautiously make your way into the room, and then torches light up throughout the large room.");    
+        System.out.println("At the end of the room, you see a large throne hidden in the shadows created by the torches.");
+        System.out.println("");        //placeholder for demon voice lines TBD
+        System.out.println("A figure stands up from the throne and reveals himself as a demon.");
+        System.out.println("");         //placeholder for demon introduction lines TBD
+        System.out.println("[demon name TBD] unsheathes his sword and prepares to attack!");
+        System.out.println("Fight!"); 
 
+        //Final Boss fight sequence
+        finalBoss();
     }
 
     /*
@@ -218,6 +231,7 @@ import java.util.Random;
                 g.printCurrentHealth();
                 if(p.speed > g.speed){
                     Attack attack = p.attackTurn();
+                    //fixing later, doesnt check if player is full
                     if(attack.name.equals("potion")){
                         System.out.println("You have used a potion(Health +3)");
                         p.currentHealth += 3;
@@ -322,7 +336,7 @@ import java.util.Random;
 
             else if(p.currentHealth <= 0){
                 System.out.println("You Died!");
-                System.out.println("Try again?(y/n)");
+                System.out.println("Play again?(y/n)");
                 response = userIn.nextLine();
                 if(response.equals("y")){
                     MainGame.main(null);
@@ -336,7 +350,89 @@ import java.util.Random;
         if(rank == 2){
             System.out.println("As you find your way throught the darkeness, you run into a giant black evil eye!");
 
-            
+            while (p.currentHealth >= 0 && e.currentHealth >=0){
+                p.printCurrentHealth();
+                e.printCurrentHealth();
+                if(p.speed > e.speed){
+                    Attack attack = p.attackTurn();
+                    //fixing later, doesnt check if player is full health
+                    if(attack.name.equals("potion")){
+                        System.out.println("You have used a potion(Health +3)");
+                        p.currentHealth += 3;
+                        p.printCurrentHealth();
+                    }
+
+                    else {
+                        acc = rand.nextInt(100);
+                        if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                            crit = rand.nextInt(100);
+                            if (crit <= attack.critChance){
+                                System.out.println("Critical Hit!");
+                                e.currentHealth = e.currentHealth - 2 * (attack.damage);
+                            }
+
+                            else {
+                                e.currentHealth = e.currentHealth - (attack.damage);
+                            }
+                        }
+
+                        else {
+                            System.out.println("Your attack missed!");
+                        }
+                    }
+
+                    if(e.currentHealth <= 0){
+                        break;
+                    }
+                    e.printCurrentHealth();
+
+                    Attack eattack = e.attackTurn();
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
+                        crit = rand.nextInt(100);
+                        if (crit <= eattack.critChance){
+                            System.out.println("Critical Hit!");
+                            p.currentHealth = p.currentHealth - 2 * (eattack.damage);
+                        }
+
+                        else {
+                            p.currentHealth = p.currentHealth - (eattack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("The Evil Eye's attack missed!");
+                    }
+                    p.printCurrentHealth();
+                }
+            }
+
+            if(e.currentHealth <= 0){
+                System.out.println("The Evil Eye has been defeated.");
+                System.out.println("You have gained a level. All stats have been increased by 1.");
+                p.level++;
+                p.strength++;
+                p.maxMana++;
+                p.currentMana++;
+                p.maxHealth++;
+                p.currentHealth++;
+                p.speed++;
+                p.refillMana();
+                p.printPlayerStats();
+                caveFinal();
+            }
+
+            else if(p.currentHealth <= 0){
+                System.out.println("You Died!");
+                System.out.println("Play again?(y/n)");
+                response = userIn.nextLine();
+                if(response.equals("y")){
+                    MainGame.main(null);
+                }
+                else if(response.equals("n")){
+                    System.exit(0);
+                }
+            }
         }
         userIn.close();
     }
@@ -389,8 +485,11 @@ import java.util.Random;
                     System.exit(0);
                 }
             }
-            p.printPlayerStats();
-            caveFinal();
+
+            else {
+                p.printPlayerStats();
+                caveFinal();
+            }
         }
     }
 
@@ -508,6 +607,18 @@ import java.util.Random;
         if (random > 8 && random <= 10){
             System.out.println("You open the chest and the chest becomes a trap and bites you back.(health -3)");
             p.currentHealth = p.currentHealth - 3;
+        }
+    }
+
+    public static void finalBoss(){
+        Scanner userIn = new Scanner(System.in);
+        String response;
+        Random rand = new Random();
+        int acc;
+        int crit;
+        
+        while (p.currentHealth > 0 && d.currentHealth > 0){
+            
         }
     }
  }
