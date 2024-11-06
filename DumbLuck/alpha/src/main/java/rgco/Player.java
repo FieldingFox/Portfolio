@@ -1,7 +1,7 @@
 package rgco;
 import java.util.Scanner;
 
-public class Player extends Being{
+public class Player{
     String name;
     int level ;
     int strength;
