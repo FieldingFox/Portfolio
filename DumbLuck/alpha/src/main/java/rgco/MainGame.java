@@ -6,6 +6,10 @@ package rgco;
  * Note: This is a massive work in progress. This program is lacking multiple key functions for
  * a working game and doesn't have a working UI(yet). Please keep this in mind. Also make sure to open
  * the entire folder in order to make sure it functions
+ * Current massive bugs to fix: 
+ * Passives, buffs, and debuffs on attacks not programmed
+ * goblin, evil eye, and demon attacks not created/not implemented
+ * flush out demon(give demon name, voicelines, etc)
  */
 
 import java.util.Scanner;
@@ -75,11 +79,11 @@ import java.util.Random;
     public static void gameStart(){
         Random rand = new Random();     //random number generator for RNG rolls
         int random = rand.nextInt(100);
-        Scanner userIn = new Scanner(System.in);    //takes user's input
+        Scanner userIn = new Scanner(System.in);   
         System.out.println("You see two tunnels ahead of you. Which tunnel do you enter?");
         System.out.println("a. Right or b. Left");
         System.out.println("Type your answer as the letter of your choice");
-        String choice = userIn.nextLine();
+        String choice = userIn.nextLine();      //takes user's input
 
         if(choice.equals("a") || choice.equals("b")){
             caveOne(random, choice);
@@ -223,6 +227,8 @@ import java.util.Random;
         Random rand = new Random();
         int acc;
         int crit;
+
+        //goblin fight in cave one
         if(rank == 1){
             System.out.println("As you enter the cave, a goblin appears before you.");
 
@@ -347,6 +353,7 @@ import java.util.Random;
             }
         }
 
+        //evil eye fight in cave two
         if(rank == 2){
             System.out.println("As you find your way throught the darkeness, you run into a giant black evil eye!");
 
@@ -543,11 +550,17 @@ import java.util.Random;
             }
 
             if (p.type.name.equals("staff")){
-                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+                System.out.println("You open the chest and find the legendary weapon Celeste");     //changing later
+                Celeste c = new Celeste();
+                p.setWeaponType(c);
+                p.setAttackList(c);
             }
 
             if (p.type.name.equals("bow")){
-                System.out.println("You open the chest and find the legendary weapon [blank]");     //changing later
+                System.out.println("You open the chest and find the legendary weapon WindBreaker");     //changing later
+                WindBreaker w = new WindBreaker();
+                p.setWeaponType(w);
+                p.setAttackList(w);
             }
             
         }
@@ -559,6 +572,9 @@ import java.util.Random;
         }
     }
 
+    /*
+     * second treasure roll function for treasure cave interaction in caveTwo
+     */
     public static void treasureRoll2(){
         Random rand = new Random();
         int random = rand.nextInt(10);
@@ -603,22 +619,162 @@ import java.util.Random;
             
         }
 
-        //20% chance to find a rat
+        //20% chance to find a trap
         if (random > 8 && random <= 10){
             System.out.println("You open the chest and the chest becomes a trap and bites you back.(health -3)");
             p.currentHealth = p.currentHealth - 3;
         }
     }
 
+    /*
+     * Begins final boss fight, and creates the victory screen at end if player beats the boss
+     */
     public static void finalBoss(){
         Scanner userIn = new Scanner(System.in);
-        String response;
+        String response;        //used if player dies
         Random rand = new Random();
         int acc;
         int crit;
         
         while (p.currentHealth > 0 && d.currentHealth > 0){
-            
+            p.printCurrentHealth();
+            d.printCurrentHealth();
+            if(p.speed >= d.speed){
+                Attack attack = p.attackTurn();
+                //fixing later, doesnt check if player is full health
+                if(attack.name.equals("potion")){
+                    System.out.println("You have used a potion(Health +3)");
+                    p.currentHealth += 3;
+                    p.printCurrentHealth();
+                }
+
+                else {
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                        crit = rand.nextInt(100);
+                        if (crit <= attack.critChance){
+                            System.out.println("Critical Hit!");
+                            d.currentHealth = d.currentHealth - 2 * (attack.damage);
+                        }
+
+                        else {
+                            d.currentHealth = d.currentHealth - (attack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("Your attack missed!");
+                    }
+                }
+
+                if(d.currentHealth <= 0){
+                    break;
+                }
+                d.printCurrentHealth();
+
+                Attack eattack = d.attackTurn();    //enemies attack variable
+                acc = rand.nextInt(100);
+                if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
+                    crit = rand.nextInt(100);
+                    if (crit <= eattack.critChance){
+                        System.out.println("Critical Hit!");
+                        p.currentHealth = p.currentHealth - 2 * (eattack.damage);
+                    }
+
+                    else {
+                        p.currentHealth = p.currentHealth - (eattack.damage);
+                    }
+                }
+
+                else {
+                    System.out.println(d.name + "'s attack missed!");
+                }
+                p.printCurrentHealth();
+            }
+
+            else if (p.speed < d.speed){
+                Attack eattack = d.attackTurn();    //enemies attack variable
+                acc = rand.nextInt(100);
+                if (acc > 100 - eattack.accuracy || eattack.accuracy == 100){
+                    crit = rand.nextInt(100);
+                    if (crit <= eattack.critChance){
+                        System.out.println("Critical Hit!");
+                        p.currentHealth = p.currentHealth - 2 * (eattack.damage);
+                    }
+
+                    else {
+                        p.currentHealth = p.currentHealth - (eattack.damage);
+                    }
+                }
+
+                else {
+                    System.out.println(d.name + "'s attack missed!");
+                }
+                p.printCurrentHealth();
+
+                Attack attack = p.attackTurn();
+                //fixing later, doesnt check if player is full health
+                if(attack.name.equals("potion")){
+                    System.out.println("You have used a potion(Health +3)");
+                    p.currentHealth += 3;
+                    p.printCurrentHealth();
+                }
+
+                else {
+                    acc = rand.nextInt(100);
+                    if (acc > 100 - attack.accuracy || attack.accuracy == 100){
+                        crit = rand.nextInt(100);
+                        if (crit <= attack.critChance){
+                            System.out.println("Critical Hit!");
+                            d.currentHealth = d.currentHealth - 2 * (attack.damage);
+                        }
+
+                        else {
+                            d.currentHealth = d.currentHealth - (attack.damage);
+                        }
+                    }
+
+                    else {
+                        System.out.println("Your attack missed!");
+                    }
+                }
+
+                if(d.currentHealth <= 0){
+                    break;
+                }
+                d.printCurrentHealth();
+            }
         }
+
+        //if demon dies
+        if(d.currentHealth <= 0){
+            System.out.println("The demon " + d.name + " has been defeated.");
+            System.out.println("Congratulations on beating Dumb Luck(demo)!");
+            System.out.println("Here are your final stats.");
+            p.level++;
+            p.strength++;
+            p.maxMana++;
+            p.currentMana++;
+            p.maxHealth++;
+            p.currentHealth++;
+            p.speed++;
+            p.refillMana();
+            p.printPlayerStats();
+            System.out.println("Thank you for playing!");
+        }
+
+        //if player dies
+        else if(p.currentHealth <= 0){
+            System.out.println("You Died!");
+            System.out.println("Play again?(y/n)");
+            response = userIn.nextLine();
+            if(response.equals("y")){
+                MainGame.main(null);
+            }
+            else if(response.equals("n")){
+                System.exit(0);
+            }
+        }
+        userIn.close();
     }
  }

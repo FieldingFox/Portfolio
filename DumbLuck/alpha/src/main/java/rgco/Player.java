@@ -92,7 +92,7 @@ public class Player {
             attackList[3] = heavyShot;
         }
 
-        if (weapon.name.equals("excalibur")){
+        if (weapon.name.equals("Excalibur")){
             HolyLight holylight = new HolyLight();
             Smite smite = new Smite();
             Disintegration disin = new Disintegration();
