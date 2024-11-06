@@ -7,5 +7,6 @@ public class TornadoBlast extends Attack{
         damage = 5;
         accuracy = 100;
         critChance = 10;
+        type = 'w';
     }
 }

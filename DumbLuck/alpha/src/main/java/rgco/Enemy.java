@@ -5,4 +5,5 @@ public class Enemy {
     int maxHealth;
     int currentHealth;
     Attack[] attackList = new Attack[4];
+    char[] weakness;
 }

@@ -7,5 +7,6 @@ public class SupersonicShock extends Attack{
         damage = 3;
         accuracy = 100;
         critChance = 10;
+        type = 'e';
     }
 }

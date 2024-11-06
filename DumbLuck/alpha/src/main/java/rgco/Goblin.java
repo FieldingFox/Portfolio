@@ -7,6 +7,7 @@ public class Goblin extends Enemy{
         maxHealth = 6;
         currentHealth = 6;
         attackList[0] = knifeJab;
+        weakness[0] = 'f';  //f stands for fire weakness
     }
 
     //note that this will be changed in the final deliverable

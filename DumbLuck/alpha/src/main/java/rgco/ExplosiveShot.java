@@ -7,5 +7,6 @@ public class ExplosiveShot extends Attack{
         damage = 4;
         accuracy = 80;
         critChance = 20;
+        type = 'f';
     }
 }

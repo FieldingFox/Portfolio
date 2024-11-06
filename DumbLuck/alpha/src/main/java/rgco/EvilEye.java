@@ -8,6 +8,7 @@ public class EvilEye extends Enemy{
         maxHealth = 10;
         currentHealth = 10;
         attackList[0] = pg;
+        weakness[0] = 'h';  //h stands for holy weakness
     }
 
     public void printCurrentHealth(){

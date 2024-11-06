@@ -6,7 +6,8 @@ public class FinalDemon extends Enemy{
         speed = 12;
         maxHealth = 20;
         currentHealth = 20;
-
+        weakness[0] = 'h';   //h stands for holy weakness
+        weakness[1] = 's';   //s stands for space weakness
     }
 
     public void printCurrentHealth(){

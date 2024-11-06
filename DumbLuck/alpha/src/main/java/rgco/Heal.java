@@ -7,5 +7,6 @@ public class Heal extends Attack{
         damage = 3;
         manaCost = 2;
         accuracy = 100;
+        type = 'h';
     }
 }

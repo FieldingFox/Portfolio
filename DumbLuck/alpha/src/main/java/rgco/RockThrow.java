@@ -7,5 +7,6 @@ public class RockThrow extends Attack{
         accuracy = 100;
         critChance = 10;
         manaCost = 1;
+        type = 'r';
     }
 }
