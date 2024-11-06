@@ -1,7 +1,7 @@
 package rgco;
 import java.util.Scanner;
 
-public class Player {
+public class Player extends Being{
     String name;
     int level ;
     int strength;
@@ -13,6 +13,8 @@ public class Player {
     Weapon type;
     Item itemList[] = new Item[3];
     Attack attackList[] = new Attack[4];
+    Debuff debuffList[] = new Debuff[4];
+    int turnSkip;
 
     public Player(){
         level = 10;
